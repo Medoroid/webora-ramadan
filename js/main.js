@@ -20,9 +20,9 @@ let warning = document.querySelector('.warning');
 let musicBtn = document.querySelector('.music');
 let vibs = new Audio('../audio/SpotiMate.io - Rmdan Gana - Mohamed Abdel Mottaleb.mp3');
 vibs.loop = true;
-     vibs.play();
+    
 document.addEventListener("click", () => {
-
+ vibs.play();
     let musicBtn = document.querySelector('.music');
    // يخليها تعيد نفسها
 
