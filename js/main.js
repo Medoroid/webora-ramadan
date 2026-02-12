@@ -20,25 +20,25 @@ let warning = document.querySelector('.warning');
 let musicBtn = document.querySelector('.music');
 let vibs = new Audio('../audio/SpotiMate.io - Rmdan Gana - Mohamed Abdel Mottaleb.mp3');
 vibs.loop = true;
-    
-document.addEventListener("click", () => {
- vibs.play();
-    let musicBtn = document.querySelector('.music');
-   // يخليها تعيد نفسها
+   vibs.play(); 
+// document.addEventListener("click", () => {
+ 
+//     let musicBtn = document.querySelector('.music');
+//    // يخليها تعيد نفسها
 
-musicBtn.addEventListener('click', () => {
-    if (vibs.paused) {
-        vibs.play();
-        musicBtn.classList.remove("fa-play");
-        musicBtn.classList.add("fa-pause");
-    } else {
-        vibs.pause();
-        musicBtn.classList.remove("fa-pause");
-        musicBtn.classList.add("fa-play");
-    }
-});
+// musicBtn.addEventListener('click', () => {
+//     if (vibs.paused) {
+//         vibs.play();
+//         musicBtn.classList.remove("fa-play");
+//         musicBtn.classList.add("fa-pause");
+//     } else {
+//         vibs.pause();
+//         musicBtn.classList.remove("fa-pause");
+//         musicBtn.classList.add("fa-play");
+//     }
+// });
 
-});
+// });
 
 
 /* تحديث الاسم */
