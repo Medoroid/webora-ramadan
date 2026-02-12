@@ -25,7 +25,15 @@ input {
   outline: none;
 }
 
-
+.form-check .form-check-input{
+      width: 2em !important;
+      height: 1em !important;
+}
+.form-check-input:checked {
+    background-color: gold;
+    border-color: gold;
+}
+/* .form-switch{} */
 .swiper-slide {
   display: flex;
   justify-content: center;
@@ -156,6 +164,28 @@ input {
 
 .style-5 {
   font-size: 20px;
+}
+}
+@media (max-width: 768px) {
+.style-1 {
+  font-size: 15px;
+}
+
+.style-2 {
+  font-size: 15px;
+}
+
+.style-3 {
+
+  font-size: 15px;
+  }
+
+.style-4 {
+  font-size: 15px;
+}
+
+.style-5 {
+  font-size: 15px;
 }
 }
 /* footer */
