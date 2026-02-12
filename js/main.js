@@ -1,3 +1,4 @@
+// ------------------ Swiper ------------------
 const swiper = new Swiper('.card-swiper', {
   slidesPerView: 1.25,
   spaceBetween: 30,
@@ -14,36 +15,33 @@ const swiper = new Swiper('.card-swiper', {
   },
 });
 
+// ------------------ DOM Elements ------------------
 let downloadBtn = document.querySelector('.btn-success');
 let nameValue = document.querySelector('#username');
 let warning = document.querySelector('.warning');
-document.addEventListener("DOMContentLoaded", () => {
+let musicSwitch = document.querySelector('#flexSwitchCheckChecked');
 
-    // Audio واحد فقط
-    let vibs = new Audio('../audio/SpotiMate.io - Rmdan Gana - Mohamed Abdel Mottaleb.mp3');
-    vibs.loop = true;
+// ------------------ Audio ------------------
+let vibs = new Audio('../audio/SpotiMate.io - Rmdan Gana - Mohamed Abdel Mottaleb.mp3');
+vibs.loop = true;
 
-    let musicSwitch = document.querySelector('#flexSwitchCheckChecked');
+// تشغيل الصوت لأول click لتجنب مشاكل Autoplay
+function startMusicOnce() {
+  if (musicSwitch.checked) vibs.play();
+  document.removeEventListener("click", startMusicOnce);
+}
+document.addEventListener("click", startMusicOnce);
 
-    // تشغيل أول click
-    function startMusicOnce() {
-        if (musicSwitch.checked) vibs.play();
-        document.removeEventListener("click", startMusicOnce);
-    }
-    document.addEventListener("click", startMusicOnce);
-
-    // التحكم في Switch
-    musicSwitch.addEventListener('change', () => {
-        if (musicSwitch.checked) {
-            vibs.play();
-        } else {
-            vibs.pause();
-        }
-    });
-
+// التحكم في الـ Switch
+musicSwitch.addEventListener('change', () => {
+  if (musicSwitch.checked) {
+    vibs.play();
+  } else {
+    vibs.pause();
+  }
 });
 
-/* تحديث الاسم */
+// ------------------ تحديث الاسم ------------------
 function updateNames(value) {
   document.querySelectorAll('.user-name').forEach(name => {
     name.textContent = value === "" 
@@ -52,7 +50,6 @@ function updateNames(value) {
   });
 }
 
-/* تحديث لايف + تفعيل الزرار */
 nameValue.addEventListener("input", function () {
   let value = this.value.trim();
   updateNames(value);
@@ -66,7 +63,7 @@ nameValue.addEventListener("input", function () {
   }
 });
 
-/* زرار تحميل */
+// ------------------ تحميل البطاقة ------------------
 downloadBtn.addEventListener('click', function (e) {
   e.preventDefault();
 
@@ -76,58 +73,40 @@ downloadBtn.addEventListener('click', function (e) {
   let userName = nameValue.value.trim();
   if (userName === "") return;
 
-  downloadBtn.disabled = true; // منع ضغط متكرر
+  downloadBtn.disabled = true;
 
   html2canvas(activeSlide, {
     scale: 3,
     useCORS: true
   }).then(canvas => {
-
     let link = document.createElement('a');
     link.download = userName + ".png";
     link.href = canvas.toDataURL('image/png');
     link.click();
 
-    downloadBtn.disabled = false; // رجع الزرار
+    downloadBtn.disabled = false;
   });
 });
 
-function startHearts() {
-    setInterval(() => {
-
-        // 🌙 Moon
-        const moon = document.createElement("div");
-        moon.className = "moon";
-        moon.innerHTML = "🌙";
-        moon.style.left = Math.random() * 100 + "vw";
-        moon.style.fontSize = Math.random() * 20 + 15 + "px";
-        document.body.appendChild(moon);
-        setTimeout(() => moon.remove(), 6000);
-
-
-        // 🕌 Masjid
-        const masged = document.createElement("div");
-        masged.className = "masged";
-        masged.innerHTML = "🕌";
-        masged.style.left = Math.random() * 100 + "vw";
-        masged.style.fontSize = Math.random() * 20 + 15 + "px";
-        document.body.appendChild(masged);
-        setTimeout(() => masged.remove(), 6000);
-
-
-
-
-
-        // ✨ Word
-        const word = document.createElement("div");
-        word.className = "word";
-        word.innerHTML = "🌛 رمضان مبارك ✨";
-        word.style.left = Math.random() * 100 + "vw";
-        word.style.fontSize = Math.random() * 20 + 15 + "px";
-        document.body.appendChild(word);
-        setTimeout(() => word.remove(), 6000);
-
-    }, 1000);
+// ------------------ Hearts Animation ------------------
+function createHeart(emoji, className) {
+  const el = document.createElement("div");
+  el.className = className;
+  el.innerHTML = emoji;
+  el.style.left = Math.random() * 100 + "vw";
+  el.style.fontSize = Math.random() * 20 + 15 + "px";
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 6000);
 }
 
-startHearts();
+function animateHearts() {
+  createHeart("🌙", "moon");
+  createHeart("🕌", "masged");
+  createHeart("🌛 رمضان مبارك ✨", "word");
+  setTimeout(animateHearts, 1000); // تكرار كل ثانية
+}
+
+// تشغيل الـ Hearts بعد تحميل DOM
+document.addEventListener("DOMContentLoaded", () => {
+  animateHearts();
+});
